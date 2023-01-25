@@ -190,7 +190,21 @@ public class UserActivity {
 			questionService.deleteQuestion(question); // deleting a question
 		} else if (user.getUserRole() == UserRole.MODERATOR) {
 
-			
+			if((question.getUser().getUserRole() == UserRole.USER) || (question.getUser() == user)){
+				questionService.deleteQuestion(question);
+			}
+			else{
+				System.out.println("You are not authorised to delete this question");
+			}
+		}
+		else if (user.getUserRole() == UserRole.USER) {
+
+			if(question.getUser() == user){
+				questionService.deleteQuestion(question);
+			}
+			else{
+				System.out.println("You are not authorised to delete this question");
+			}
 		}
 		// Write else if condition to check if the user is a moderator
 		// Write else if condition to check if the user is a regular user
